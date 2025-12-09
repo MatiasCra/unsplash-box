@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/prisma";
-import { Collection } from "@/app/generated/client";
+import { Collection } from "@prisma/client";
 
 /**
  * GET /api/collections
