@@ -2,13 +2,11 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider     = "prisma-client"
-  output       = "../app/generated/"
-  moduleFormat = "cjs"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Collection {
@@ -18,13 +16,12 @@ model Collection {
 }
 
 model Image {
-  id           Int        @id @default(autoincrement())
-  unsplashId   String     @unique
-  raw          String
-  full         String
-  regular      String
-  small        String
-  thumb        String
-  collection   Collection @relation(fields: [collectionId], references: [id])
-  collectionId Int
+  id          Int          @id @default(autoincrement())
+  unsplashId  String       @unique
+  raw         String
+  full        String
+  regular     String
+  small       String
+  thumb       String
+  collections Collection[]
 }
