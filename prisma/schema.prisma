@@ -1,0 +1,30 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../app/generated/"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Collection {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  images Image[]
+}
+
+model Image {
+  id           Int        @id @default(autoincrement())
+  unsplashId   String     @unique
+  raw          String
+  full         String
+  regular      String
+  small        String
+  thumb        String
+  collection   Collection @relation(fields: [collectionId], references: [id])
+  collectionId Int
+}
