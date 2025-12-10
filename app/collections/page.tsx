@@ -1,7 +1,3 @@
-import Image from "next/image";
-import HeroLeft from "@/assets/hero-left.png";
-import HeroRight from "@/assets/hero-right.png";
-import Search from "@/assets/Search.svg";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

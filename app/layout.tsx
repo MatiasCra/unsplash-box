@@ -3,6 +3,7 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import Favicon from "../assets/favicon.ico";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import { ViewTransition } from "react";
 
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ["latin"],
@@ -23,8 +24,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // get title from rect props
-
   return (
     <html lang="en">
       <head>
@@ -33,9 +32,11 @@ export default function RootLayout({
           {typeof metadata.title === "string" ? metadata.title : "Unsplash Box"}
         </title>
       </head>
-      <body className={`${beVietnamPro.variable} antialiased`}>
-        <Navbar />
-        {children}
+      <body className={`${beVietnamPro.variable} antialiased min-h-screen`}>
+        <ViewTransition>
+          <Navbar />
+          {children}
+        </ViewTransition>
       </body>
     </html>
   );
