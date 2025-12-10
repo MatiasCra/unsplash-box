@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { fetchCollections } from "../utils/api";
 import CollectionPreview from "../components/CollectionPreview";
 import Link from "next/link";
-import Image from "next/image";
-import Plus from "@/assets/Plus.svg";
+import AddCollectionButton from "../components/AddCollectionButton";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -13,7 +12,7 @@ export default async function Home() {
   const collections = await fetchCollections();
 
   return (
-    <div className="flex flex-col w-full bg-lightest overflow-hidden">
+    <div className="flex flex-col w-full bg-lightest overflow-hidden pb-6">
       <div className="w-full px-10 mt-8 flex flex-col items-center justify-center text-center">
         <h1 className="font-semibold text-4xl bg-linear-to-r from-[#F2C596] via-[#C7788F] to-[#8A307F] bg-clip-text text-transparent">
           Collections
@@ -45,13 +44,7 @@ export default async function Home() {
             </div>
           ),
         )}
-        <Link
-          href="#"
-          className="size-full min-h-80 rounded-lg bg-light flex flex-col gap-2 items-center justify-center text-dark p-8"
-        >
-          <Image src={Plus} alt="add" className="size-8" />
-          <h3 className="text-xl font-medium">Add a new collection</h3>
-        </Link>
+        <AddCollectionButton />
       </div>
     </div>
   );

@@ -16,7 +16,10 @@ export default function CollectionPreview({
   images,
 }: CollectionPreviewProps) {
   return (
-    <Link href="#" className={`${className || ""} w-full size-full rounded-lg`}>
+    <Link
+      href="#"
+      className={`${className || ""} w-full size-full rounded-lg h-80`}
+    >
       {!images.length && (
         <div className="bg-light h-10/12 w-full rounded-lg flex flex-col gap-2 text-dark font-medium items-center justify-center">
           <h3 className="text-2xl">Empty</h3>
