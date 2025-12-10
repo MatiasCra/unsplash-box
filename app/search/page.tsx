@@ -6,7 +6,7 @@ import Searchbar from "../components/Searchbar";
 import { searchImages } from "../utils/api";
 
 export const metadata: Metadata = {
-  title: "Search",
+  title: "Search images",
   description: "Search for Unsplash pictures",
 };
 
@@ -32,7 +32,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
           {images.map(
             (
               image: {
-                id: string;
+                unsplashId: string;
                 regular: string;
                 alt_description: string;
                 width: number;
@@ -42,7 +42,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
             ) => (
               <Link
                 key={index}
-                href="#"
+                href={`/image/${image.unsplashId}`}
                 className="w-full h-auto flex items-center justify-center"
               >
                 <Image
@@ -51,7 +51,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   width={image.width}
                   height={image.height}
                   className="w-full h-auto rounded-sm"
-                  style={{ viewTransitionName: image.id }}
+                  style={{ viewTransitionName: image.unsplashId }}
                 />
               </Link>
             ),

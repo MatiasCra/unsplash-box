@@ -5,7 +5,7 @@ import Link from "next/link";
 import AddCollectionButton from "../components/AddCollectionButton";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Collections",
 };
 
 export default async function Home() {

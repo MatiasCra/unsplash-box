@@ -39,3 +39,12 @@ export async function fetchCollections() {
   const data = await response.json();
   return data;
 }
+
+export async function fetchImage(unsplashId: string) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const response = await fetch(`${baseUrl}/api/photos/${unsplashId}`);
+  const data = await response.json();
+  console.log(data);
+
+  return data;
+}
