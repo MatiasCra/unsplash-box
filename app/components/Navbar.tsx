@@ -24,7 +24,12 @@ export default function Navbar() {
   return (
     <header className="h-18 px-4 md:px-10 border-b border-light flex justify-between relative z-10">
       <Link href="/" className="flex items-center">
-        <Image src={Logo} alt="Unsplash Box Logo" className="h-7 w-auto" />
+        <Image
+          src={Logo}
+          alt="Unsplash Box Logo"
+          className="h-7 w-auto"
+          loading="eager"
+        />
       </Link>
       <nav className="flex flex-row items-center justify-center max-sm:text-sm lg:gap-4 lg:mr-4">
         <Link href="/" className={`${selectedClasses(pathname, "/")}`}>

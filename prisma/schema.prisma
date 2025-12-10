@@ -23,5 +23,7 @@ model Image {
   regular     String
   small       String
   thumb       String
+  width       Int
+  height      Int
   collections Collection[]
 }

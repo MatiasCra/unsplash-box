@@ -32,3 +32,10 @@ export async function searchImages(keywords: string) {
       },
     );
 }
+
+export async function fetchCollections() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const response = await fetch(`${baseUrl}/api/collections`);
+  const data = await response.json();
+  return data;
+}

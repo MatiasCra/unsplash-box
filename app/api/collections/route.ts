@@ -10,7 +10,7 @@ import { Collection } from "@prisma/client";
 export async function GET() {
   try {
     const collections: Collection[] = await prisma.collection.findMany({
-      include: { images: false },
+      include: { images: { take: 3 } },
     });
 
     return Response.json(collections);
