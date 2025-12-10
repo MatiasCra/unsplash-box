@@ -6,6 +6,7 @@ import { Collection } from "@prisma/client";
  *
  * Retrieves a list of all collections stored in the database.
  * Each collection includes its related images.
+ * Optionally filter by unsplashId to get only collections containing that image.
  */
 export async function GET() {
   try {

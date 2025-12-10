@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Image from "next/image";
-import { fetchImage } from "@/app/utils/api";
+import { fetchImage, fetchImageCollections } from "@/app/utils/api";
 import Plus from "@/assets/PlusDarker.svg";
 import Download from "@/assets/down arrow.svg";
 
@@ -36,6 +36,9 @@ export default async function ImageView({
   const id = (await params).unsplashId;
   const imageData: ImageData = await fetchImage(id);
   const publishedDate = new Date(imageData.created_at);
+  const collections = await fetchImageCollections(id);
+  console.log(collections);
+
   return (
     <div className="flex flex-col lg:flex-row m-10 gap-8">
       <div className="flex items-center justify-center w-full lg:w-1/2">
@@ -76,6 +79,8 @@ export default async function ImageView({
         <div>
           <h2 className="mt-8 text-xl font-semibold">Collections</h2>
           TODO
+          {collections &&
+            collections.map((collection: { name: string }) => collection.name)}
         </div>
       </div>
     </div>

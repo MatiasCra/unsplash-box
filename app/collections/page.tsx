@@ -20,7 +20,11 @@ export default async function Home() {
         <h2 className="text-[1rem]/5 my-3">
           Explore the world through collections of beautiful <br />
           photos free to use under the
-          <Link href="#" className="text-darker underline ml-1 font-semibold">
+          <Link
+            href="https://unsplash.com/license"
+            target="_blank"
+            className="text-darker underline ml-1 font-semibold"
+          >
             Unsplash License
           </Link>
           .
