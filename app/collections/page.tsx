@@ -33,7 +33,7 @@ export default async function Home() {
       <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:gap-12 xl:gap-16 w-full place-content-center p-10">
         {collections.map(
           (collection: {
-            id: string;
+            id: number;
             name: string;
             images: { unsplashId: string; regular: string }[];
           }) => (

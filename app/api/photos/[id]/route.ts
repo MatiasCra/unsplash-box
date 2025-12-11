@@ -1,6 +1,22 @@
 import type { NextRequest } from "next/server";
 import { unsplashApiUrl } from "@/data/constants";
 
+export async function getUnsplashPhotoData(id: string) {
+  const url = `${unsplashApiUrl}/photos/${id}`;
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Client-ID ${process.env.ACCESS_KEY}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch photo: ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  return data;
+}
+
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> },
@@ -13,20 +29,13 @@ export async function GET(
     });
   }
 
-  const url = `${unsplashApiUrl}/photos/${id}`;
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Client-ID ${process.env.ACCESS_KEY}`,
-    },
-  });
-
-  if (!response.ok) {
-    return new Response(JSON.stringify({ error: "Failed to fetch photo" }), {
-      status: response.status,
+  try {
+    const data = await getUnsplashPhotoData(id);
+    return Response.json(data);
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
+      status: 500,
       headers: { "Content-Type": "application/json" },
     });
   }
-
-  const data = await response.json();
-  return Response.json(data);
 }

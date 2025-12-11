@@ -1,3 +1,8 @@
+import { getCollectionsData } from "../api/collections/route";
+import { getUnsplashPhotoData } from "../api/photos/[id]/route";
+import { getImageCollectionsData } from "../api/images/collections/[unsplashId]/route";
+import { getUnsplashSearchResults } from "../api/search/photos/route";
+
 interface urlTypes {
   small: string;
   full: string;
@@ -7,11 +12,8 @@ interface urlTypes {
 }
 
 export async function searchImages(keywords: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(
-    `${baseUrl}/api/search/photos?query=${keywords}`,
-  );
-  const data = await response.json();
+  const query = new URLSearchParams({ query: keywords }).toString();
+  const data = await getUnsplashSearchResults(query);
   return data.results
     .slice(0, 8)
     .map(
@@ -34,29 +36,16 @@ export async function searchImages(keywords: string) {
 }
 
 export async function fetchCollections() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(`${baseUrl}/api/collections`);
-  const data = await response.json();
+  const data = await getCollectionsData(); // Direct call
   return data;
 }
 
 export async function fetchImage(unsplashId: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(`${baseUrl}/api/photos/${unsplashId}`);
-  const data = await response.json();
+  const data = await getUnsplashPhotoData(unsplashId); // Direct call
   return data;
 }
 
 export async function fetchImageCollections(unsplashId: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const response = await fetch(
-    `${baseUrl}/api/images/collections/${unsplashId}`,
-  );
-
-  if (!response.ok) {
-    return [];
-  }
-
-  const data = await response.json();
-  return data.collections ?? [];
+  const data = await getImageCollectionsData(unsplashId); // Direct call
+  return data?.collections ?? [];
 }

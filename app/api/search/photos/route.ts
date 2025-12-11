@@ -1,12 +1,6 @@
 import { unsplashApiUrl } from "@/data/constants";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  if (!searchParams.get("page")) {
-    searchParams.set("page", "1");
-  }
-
-  const query = searchParams.toString();
+export async function getUnsplashSearchResults(query: string) {
   const url = `${unsplashApiUrl}/search/photos?${query}`;
 
   const response = await fetch(url, {
@@ -16,15 +10,28 @@ export async function GET(request: Request) {
   });
 
   if (!response.ok) {
-    return new Response(
-      JSON.stringify({ error: "Failed to fetch from Unsplash" }),
-      {
-        status: response.status,
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    throw new Error(`Failed to fetch from Unsplash: ${response.statusText}`);
   }
 
   const data = await response.json();
-  return Response.json(data);
+  return data;
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  if (!searchParams.get("page")) {
+    searchParams.set("page", "1");
+  }
+
+  const query = searchParams.toString();
+
+  try {
+    const data = await getUnsplashSearchResults(query);
+    return Response.json(data);
+  } catch (error: any) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 }

@@ -3,6 +3,7 @@ import HeroLeft from "@/assets/hero-left.png";
 import HeroRight from "@/assets/hero-right.png";
 import Searchbar from "./components/Searchbar";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -16,7 +17,9 @@ export default function Home() {
         <h2 className="text-[1rem] mt-2 font-light text-center">
           Search high-resolution images from Unsplash
         </h2>
-        <Searchbar className="mt-6" />
+        <Suspense fallback={null}>
+          <Searchbar className="mt-6" />
+        </Suspense>
       </main>
       <Image
         src={HeroLeft}

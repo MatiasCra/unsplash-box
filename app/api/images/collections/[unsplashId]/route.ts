@@ -1,5 +1,34 @@
 import { prisma } from "@/prisma/prisma";
 
+export async function getImageCollectionsData(unsplashId: string) {
+  const image = await prisma.image.findUnique({
+    where: { unsplashId },
+    include: {
+      collections: {
+        include: {
+          images: { take: 3 },
+          _count: { select: { images: true } },
+        },
+      },
+    },
+  });
+
+  if (!image) {
+    return null; // Or throw an error, depending on desired behavior
+  }
+
+  const imageWithCount = {
+    ...image,
+    collections: image.collections.map((collection) => ({
+      ...collection,
+      totalImages: collection._count.images,
+      _count: undefined,
+    })),
+  };
+
+  return imageWithCount;
+}
+
 /**
  * GET /api/images/collections/[unsplashId]
  *
@@ -13,33 +42,14 @@ export async function GET(
   try {
     const { unsplashId } = await params;
 
-    const image = await prisma.image.findUnique({
-      where: { unsplashId },
-      include: {
-        collections: {
-          include: {
-            images: { take: 3 },
-            _count: { select: { images: true } },
-          },
-        },
-      },
-    });
+    const imageWithCount = await getImageCollectionsData(unsplashId);
 
-    if (!image) {
+    if (!imageWithCount) {
       return new Response(JSON.stringify({ error: "Image not found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
       });
     }
-
-    const imageWithCount = {
-      ...image,
-      collections: image.collections.map((collection) => ({
-        ...collection,
-        totalImages: collection._count.images,
-        _count: undefined,
-      })),
-    };
 
     return Response.json(imageWithCount);
   } catch (error) {
