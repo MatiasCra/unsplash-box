@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   title: "Collections",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const collections = await fetchCollections();
 
