@@ -1,3 +1,5 @@
+"use server";
+
 import { getCollectionsData } from "../api/collections/route";
 import { getUnsplashPhotoData } from "../api/photos/[id]/route";
 import { getImageCollectionsData } from "../api/images/collections/[unsplashId]/route";

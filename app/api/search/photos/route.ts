@@ -28,8 +28,8 @@ export async function GET(request: Request) {
   try {
     const data = await getUnsplashSearchResults(query);
     return Response.json(data);
-  } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), {
+  } catch (error) {
+    return new Response(JSON.stringify(error), {
       status: 500,
       headers: { "Content-Type": "application/json" },
     });
