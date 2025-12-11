@@ -8,12 +8,14 @@ interface CollectionPreviewProps {
     unsplashId: string;
     regular: string;
   }[];
+  totalImages: number;
 }
 
 export default function CollectionPreview({
   className,
   name,
   images,
+  totalImages,
 }: CollectionPreviewProps) {
   return (
     <Link
@@ -64,7 +66,7 @@ export default function CollectionPreview({
       )}
       <div className="h-2/12 mt-3">
         <h2 className="text-[1rem] font-semibold">{name}</h2>
-        <p className="text-sm text-dark">{images.length} Photos</p>
+        <p className="text-sm text-dark">{totalImages} Photos</p>
       </div>
     </Link>
   );

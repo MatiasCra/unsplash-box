@@ -17,9 +17,9 @@ export default async function Home() {
         <h1 className="font-semibold text-4xl bg-linear-to-r from-[#F2C596] via-[#C7788F] to-[#8A307F] bg-clip-text text-transparent">
           Collections
         </h1>
-        <h2 className="text-[1rem]/5 my-3">
-          Explore the world through collections of beautiful <br />
-          photos free to use under the
+        <h2 className="text-[1rem]/5 my-3 sm:max-w-104">
+          Explore the world through collections of beautiful photos free to use
+          under the
           <Link
             href="https://unsplash.com/license"
             target="_blank"
@@ -36,6 +36,7 @@ export default async function Home() {
             id: number;
             name: string;
             images: { unsplashId: string; regular: string }[];
+            totalImages: number;
           }) => (
             <div
               key={collection.id}
@@ -44,6 +45,7 @@ export default async function Home() {
               <CollectionPreview
                 images={collection.images}
                 name={collection.name}
+                totalImages={collection.totalImages}
               />
             </div>
           ),
