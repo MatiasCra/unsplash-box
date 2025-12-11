@@ -25,6 +25,8 @@ async function retrieveOrInsert(unsplashId: string) {
     raw: data.urls.raw,
     regular: data.urls.regular,
     thumb: data.urls.thumb,
+    width: data.width,
+    height: data.height,
   };
 
   return prisma.image.create({ data: imageData });
