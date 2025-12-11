@@ -15,10 +15,12 @@ interface Collection {
 
 interface AddToCollectionButtonProps {
   unsplashId: string;
+  onAddSuccess?: () => void;
 }
 
 export default function AddToCollectionButton({
   unsplashId,
+  onAddSuccess,
 }: AddToCollectionButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
@@ -87,8 +89,12 @@ export default function AddToCollectionButton({
     });
 
     setIsLoading(false);
-    router.refresh();
     handleClose();
+    if (onAddSuccess) {
+      onAddSuccess();
+    } else {
+      router.refresh();
+    }
   };
 
   return (

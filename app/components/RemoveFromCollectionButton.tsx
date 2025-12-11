@@ -8,12 +8,14 @@ interface RemoveFromCollectionButtonProps {
   collectionId: number;
   unsplashId: string;
   children: ReactNode;
+  onRemoveSuccess?: () => void;
 }
 
 export default function RemoveFromCollectionButton({
   collectionId,
   unsplashId,
   children,
+  onRemoveSuccess,
 }: RemoveFromCollectionButtonProps) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,7 +27,11 @@ export default function RemoveFromCollectionButton({
       await fetch(`/api/collections/${collectionId}/images/${unsplashId}`, {
         method: "DELETE",
       });
-      window.location.reload();
+      if (onRemoveSuccess) {
+        onRemoveSuccess();
+      } else {
+        window.location.reload();
+      }
     } catch (err) {
       console.error(err);
       setIsLoading(false);
