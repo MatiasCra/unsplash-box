@@ -3,9 +3,9 @@ import { prisma } from "@/prisma/prisma";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string; imageId: string }> },
+  { params }: { params: Promise<{ id: string; unsplashId: string }> },
 ) {
-  const { id, imageId }: { id: string; imageId: string } = await params;
+  const { id, unsplashId } = await params;
 
   const collection = await prisma.collection.findUnique({
     where: {
@@ -17,6 +17,14 @@ export async function DELETE(
     return new Response("Collection not found", { status: 404 });
   }
 
+  const image = await prisma.image.findUnique({
+    where: { unsplashId },
+  });
+
+  if (!image) {
+    return new Response("Image not found", { status: 404 });
+  }
+
   const updatedCollection = await prisma.collection.update({
     where: {
       id: Number(id),
@@ -24,7 +32,7 @@ export async function DELETE(
     data: {
       images: {
         disconnect: {
-          id: Number(imageId),
+          id: image.id,
         },
       },
     },

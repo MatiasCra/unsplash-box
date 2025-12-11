@@ -87,7 +87,6 @@ export default function AddToCollectionButton({
     setIsLoading(false);
     handleClose();
   };
-  console.log(collections);
 
   return (
     <>
@@ -95,7 +94,13 @@ export default function AddToCollectionButton({
         onClick={handleOpen}
         className="flex gap-3 px-6 py-2 rounded-sm bg-light cursor-pointer hover:brightness-75 transition duration-150"
       >
-        <Image src={Plus} alt="plus" width={20} height={20} />
+        <Image
+          src={Plus}
+          alt="plus"
+          width={20}
+          height={20}
+          className="w-auto h-auto"
+        />
         Add to Collection
       </button>
 

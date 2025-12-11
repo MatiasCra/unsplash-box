@@ -19,6 +19,7 @@ export async function GET(
         collections: {
           include: {
             images: { take: 3 },
+            _count: { select: { images: true } },
           },
         },
       },
@@ -31,7 +32,16 @@ export async function GET(
       });
     }
 
-    return Response.json(image);
+    const imageWithCount = {
+      ...image,
+      collections: image.collections.map((collection) => ({
+        ...collection,
+        totalImages: collection._count.images,
+        _count: undefined,
+      })),
+    };
+
+    return Response.json(imageWithCount);
   } catch (error) {
     console.error("Error fetching image:", error);
     return new Response(JSON.stringify({ error: "Failed to fetch image" }), {
