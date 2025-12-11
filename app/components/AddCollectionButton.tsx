@@ -77,14 +77,14 @@ export default function AddCollectionButton() {
                   <div className="flex justify-center gap-4">
                     <button
                       type="submit"
-                      className="rounded-sm cursor-pointer px-5 py-2 text-darker bg-light hover:bg-darker hover:text-lightest transition-colors"
+                      className="rounded-sm cursor-pointer px-5 py-2 text-darker bg-light hover:brightness-75 transition duration-150"
                     >
                       Save
                     </button>
                     <button
                       type="button"
                       onClick={handleClose}
-                      className="rounded-sm cursor-pointer px-5 py-2 text-darker hover:bg-darker hover:text-lightest transition-colors"
+                      className="rounded-sm cursor-pointer px-5 py-2 text-darker hover:bg-light transition-colors duration-150"
                     >
                       Cancel
                     </button>

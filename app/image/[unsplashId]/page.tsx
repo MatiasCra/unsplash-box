@@ -3,10 +3,26 @@ import Image from "next/image";
 import { fetchImage, fetchImageCollections } from "@/app/utils/api";
 import ImagePageContent from "@/app/components/ImagePageContent";
 
-export const metadata: Metadata = {
-  title: "Search images",
-  description: "Search for Unsplash pictures",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ unsplashId: string }>;
+}): Promise<Metadata> {
+  const { unsplashId } = await params;
+  try {
+    const imageData = await fetchImage(unsplashId);
+    return {
+      title: imageData.alt_description || "Image",
+      description: imageData.alt_description || "View image details",
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      title: "Image",
+      description: "View image details",
+    };
+  }
+}
 
 interface ImageData {
   urls: {

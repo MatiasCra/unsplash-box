@@ -3,6 +3,7 @@ import Image from "next/image";
 
 interface CollectionPreviewProps {
   className?: string;
+  id: number;
   name: string;
   images: {
     unsplashId: string;
@@ -13,13 +14,14 @@ interface CollectionPreviewProps {
 
 export default function CollectionPreview({
   className,
+  id,
   name,
   images,
   totalImages,
 }: CollectionPreviewProps) {
   return (
     <Link
-      href="#"
+      href={`/collections/${id}`}
       className={`${className || ""} w-full size-full rounded-lg h-80 hover:scale-105 transition-transform duration-200`}
     >
       {!images.length && (

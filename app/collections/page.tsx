@@ -43,6 +43,7 @@ export default async function Home() {
               className="rounded-xl flex justify-center items-center size-full"
             >
               <CollectionPreview
+                id={collection.id}
                 images={collection.images}
                 name={collection.name}
                 totalImages={collection.totalImages}
