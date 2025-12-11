@@ -1,5 +1,4 @@
 import { prisma } from "@/prisma/prisma";
-import { Collection } from "@prisma/client";
 
 /**
  * GET /api/collections
@@ -10,19 +9,26 @@ import { Collection } from "@prisma/client";
  */
 export async function GET() {
   try {
-    const collections: Collection[] = await prisma.collection.findMany({
-      include: { images: { take: 3 } },
+    const collections = await prisma.collection.findMany({
+      include: {
+        images: { take: 3 },
+        _count: { select: { images: true } },
+      },
     });
 
-    return Response.json(collections);
+    const collectionsWithCount = collections.map((collection) => ({
+      ...collection,
+      totalImages: collection._count.images,
+      _count: undefined,
+    }));
+
+    return Response.json(collectionsWithCount);
   } catch (error) {
     console.error("Error fetching collections:", error);
     return new Response(
       JSON.stringify({ error: "Failed to fetch collections" }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }
 
@@ -43,7 +49,5 @@ export async function POST(request: Request) {
       JSON.stringify({ error: "Failed to create collection" }),
       { status: 500, headers: { "Content-Type": "application/json" } },
     );
-  } finally {
-    await prisma.$disconnect();
   }
 }

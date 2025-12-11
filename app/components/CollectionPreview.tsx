@@ -18,12 +18,14 @@ export default function CollectionPreview({
   return (
     <Link
       href="#"
-      className={`${className || ""} w-full size-full rounded-lg h-80`}
+      className={`${className || ""} w-full size-full rounded-lg h-80 hover:scale-105 transition-transform duration-200`}
     >
       {!images.length && (
         <div className="bg-light h-10/12 w-full rounded-lg flex flex-col gap-2 text-dark font-medium items-center justify-center">
           <h3 className="text-2xl">Empty</h3>
-          <h3 className="">There are no images in this collection</h3>
+          <h3 className="text-center mx-3">
+            There are no images in this collection
+          </h3>
         </div>
       )}
       {!!images.length && images.length < 3 && (
@@ -32,35 +34,31 @@ export default function CollectionPreview({
           alt={name}
           width={1000}
           height={1000}
-          className="size-full object-cover"
-          style={{ viewTransitionName: images[0].unsplashId }}
+          className="w-full object-cover h-10/12 rounded-lg"
         />
       )}
       {!!images.length && images.length >= 3 && (
-        <div className="grid size-full grid-cols-2 grid-rows-2 gap-2">
+        <div className="grid size-full grid-cols-4 grid-rows-2 gap-1 h-10/12">
           <Image
             src={images[0].regular}
             alt={name}
             width={1000}
             height={1000}
-            className="col-span-2 size-full object-cover"
-            style={{ viewTransitionName: images[0].unsplashId }}
+            className="row-span-2 col-span-3 size-full object-cover rounded-l-lg"
           />
           <Image
             src={images[1].regular}
             alt={name}
             width={1000}
             height={1000}
-            className="size-full object-cover"
-            style={{ viewTransitionName: images[1].unsplashId }}
+            className="size-full object-cover rounded-tr-lg"
           />
           <Image
             src={images[2].regular}
             alt={name}
             width={1000}
             height={1000}
-            className="size-full object-cover"
-            style={{ viewTransitionName: images[2].unsplashId }}
+            className="size-full object-cover rounded-br-lg"
           />
         </div>
       )}

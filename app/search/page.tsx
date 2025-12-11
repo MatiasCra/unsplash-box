@@ -51,7 +51,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
                   width={image.width}
                   height={image.height}
                   className="w-full h-auto rounded-sm"
-                  style={{ viewTransitionName: image.unsplashId }}
+                  style={{ viewTransitionName: `img-${image.unsplashId}` }}
                 />
               </Link>
             ),

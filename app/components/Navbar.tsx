@@ -31,7 +31,7 @@ export default function Navbar() {
           loading="eager"
         />
       </Link>
-      <nav className="flex flex-row items-center justify-center max-sm:text-sm lg:gap-4 lg:mr-4">
+      <nav className="flex flex-row items-center justify-center max-sm:text-sm gap-2 lg:gap-4 lg:mr-4">
         <Link href="/" className={`${selectedClasses(pathname, "/")}`}>
           Home
         </Link>

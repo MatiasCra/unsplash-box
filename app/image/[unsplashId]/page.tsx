@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { fetchImage, fetchImageCollections } from "@/app/utils/api";
-import Plus from "@/assets/PlusDarker.svg";
 import Download from "@/assets/down arrow.svg";
+import AddToCollectionButton from "@/app/components/AddToCollectionButton";
 
 export const metadata: Metadata = {
   title: "Search images",
@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 interface ImageData {
   urls: {
     regular: string;
+    raw: string;
   };
   alt_description: string;
   width: number;
@@ -48,6 +49,7 @@ export default async function ImageView({
           alt={imageData.alt_description}
           width={imageData.width}
           height={imageData.height}
+          style={{ viewTransitionName: `img-${id}` }}
         />
       </div>
       <div>
@@ -67,14 +69,15 @@ export default async function ImageView({
           {publishedDate.getUTCDay()}, {publishedDate.getUTCFullYear()}
         </div>
         <div className="mt-4 flex gap-4">
-          <button className="flex gap-3 px-6 py-2 rounded-sm bg-light cursor-pointer hover:brightness-75 transition duration-150">
-            <Image src={Plus} alt="plus" width={20} height={20} />
-            Add to Collection
-          </button>
-          <button className="flex gap-3 px-6 py-2 rounded-sm bg-light cursor-pointer hover:brightness-75 transition duration-150">
+          <AddToCollectionButton unsplashId={id} />
+          <a
+            href={`${imageData.urls.raw}&dl=`}
+            download
+            className="flex gap-3 px-6 py-2 rounded-sm bg-light cursor-pointer hover:brightness-75 transition duration-150"
+          >
             <Image src={Download} alt="download" width={20} height={20} />
             Download
-          </button>
+          </a>
         </div>
         <div>
           <h2 className="mt-8 text-xl font-semibold">Collections</h2>

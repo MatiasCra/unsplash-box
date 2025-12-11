@@ -39,7 +39,8 @@ export default function AddCollectionButton() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="size-full h-80 rounded-lg bg-light flex flex-col gap-2 items-center justify-center text-dark p-8 cursor-pointer hover:bg-gray-200 transition-colors"
+        className="size-full h-80 rounded-lg bg-light flex flex-col gap-2 items-center justify-center
+                 text-dark p-8 cursor-pointer hover:bg-gray-200 transition-transform duration-200 hover:scale-105"
       >
         <Image src={Plus} alt="add" className="size-8" />
         <h3 className="text-xl font-medium">Add a new collection</h3>
