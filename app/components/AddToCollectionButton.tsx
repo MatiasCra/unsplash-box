@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback, Suspense } from "react";
 import Image from "next/image";
 import Plus from "@/assets/PlusDarker.svg";
 import Searchbar from "./Searchbar";
+import { useRouter } from "next/navigation";
 
 interface Collection {
   id: number;
@@ -28,6 +29,7 @@ export default function AddToCollectionButton({
   const [existingCollectionIds, setExistingCollectionIds] = useState<number[]>(
     [],
   );
+  const router = useRouter();
 
   const filteredCollections = useMemo(
     () =>
@@ -85,6 +87,7 @@ export default function AddToCollectionButton({
     });
 
     setIsLoading(false);
+    router.refresh();
     handleClose();
   };
 
