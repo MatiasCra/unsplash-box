@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import GradientBg from "@/assets/gradiend-bg@2x.png";
 import Searchbar from "../components/Searchbar";
 import { searchImages } from "../utils/api";
@@ -26,7 +27,9 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
         className="h-28"
         loading="eager"
       />
-      <Searchbar className="-mt-8 max-w-11/12" />
+      <Suspense fallback={<div className="-mt-8 w-full px-4" />}>
+        <Searchbar className="-mt-8 max-w-11/12" />
+      </Suspense>
       {images && images.length > 0 && (
         <div className="p-18 columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-10 space-y-7">
           {images.map(
