@@ -165,17 +165,17 @@ export default function AddToCollectionButton({
                               className="group cursor-pointer w-full p-3 rounded-lg hover:bg-light transition-colors flex items-center gap-3 text-left"
                             >
                               <div className="flex -space-x-2">
-                                {collection.images.slice(0, 3).map((img, i) => (
-                                  <Image
-                                    key={img.unsplashId}
-                                    src={img.regular}
-                                    alt=""
-                                    width={64}
-                                    height={64}
-                                    className="size-16 rounded-md object-cover border-2 border-white"
-                                    style={{ zIndex: 3 - i }}
-                                  />
-                                ))}
+                                {collection.images &&
+                                  collection.images.length > 0 && (
+                                    <Image
+                                      key={collection.images[0].unsplashId}
+                                      src={collection.images[0].regular}
+                                      alt=""
+                                      width={64}
+                                      height={64}
+                                      className="size-16 rounded-md object-cover border-2 border-white"
+                                    />
+                                  )}
                                 {collection.images.length === 0 && (
                                   <div className="size-16 rounded-md bg-gray-200 flex items-center justify-center">
                                     <p className="text-xs text-dark">Empty</p>
